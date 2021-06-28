@@ -15,7 +15,7 @@
     "url": ""
   },
   "author": "Adrian Wiejacha <adrian.wiejacha@gmail.com",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "dependencies": {
     "fastify": "^3.18.0",
