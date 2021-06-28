@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: app
+    build: .
+    working_dir: /home/node/app
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./:/home/node/app:delegated
+    ports:
+      - 3000:3000
+    entrypoint: npm
+    command: start
+    networks:
+      taskiify:
+  db:
+    container_name: db
+    restart: always
+    image: mysql/mysql-server:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - 3306:3306
+    networks:
+      taskiify:
+        aliases: ["mysql.docker.internal"]
+    volumes:
+      - db:/var/lib/mysql
+
+networks:
+  taskiify:
+    driver: bridge
+
+volumes:
+  db:

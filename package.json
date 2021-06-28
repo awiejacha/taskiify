@@ -1,0 +1,42 @@
+{
+  "name": "taskiify",
+  "version": "0.0.1",
+  "description": "Taskify with double 'i'",
+  "scripts": {
+    "start": "npm run transpile && node dist/app",
+    "prebuild": "npm install",
+    "build": "npm run transpile",
+    "transpile": "tsc",
+    "lint": "./node_modules/.bin/tslint -p .",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Adrian Wiejacha <adrian.wiejacha@gmail.com",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "private": true,
+  "dependencies": {
+    "fastify": "^3.18.0",
+    "fastify-plugin": "^3.0.0",
+    "knex": "^0.95.6",
+    "mysql2": "^2.2.5",
+    "nanoid": "^3.1.23"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/jest-expect-message": "^1.0.3",
+    "@types/node": "^15.12.4",
+    "jest": "^27.0.5",
+    "jest-expect-message": "^1.0.2",
+    "jest-mock-console": "^1.1.0",
+    "jest-mock-extended": "^1.0.16",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.0.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.2",
+    "tsutils": "^3.21.0",
+    "typescript": "^4.3.4"
+  }
+}

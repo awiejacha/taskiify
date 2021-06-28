@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es2019",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist/",
+    "rootDirs": [
+      "src",
+      "features"
+    ],
+    "baseUrl": ".",
+    "typeRoots": [
+      "src/types",
+      "node_modules/@types"
+    ],
+    "experimentalDecorators": true,
+    "lib": [
+      "es2019",
+      "dom"
+    ]
+  },
+  "exclude": [
+    "node_modules/*",
+    "src/types",
+    "src/__mocks__"
+  ],
+  "include": [
+    "src/**/*",
+    "features/**/*"
+  ]
+}
