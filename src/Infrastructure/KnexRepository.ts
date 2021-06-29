@@ -1,10 +1,10 @@
-import Repository from '../Domain/Repository';
-import Task from '../Domain/ValueObjects/Task';
 import { Knex } from 'knex/types';
+import Repository from '../Domain/Repository';
 import Location from '../Domain/ValueObjects/Location';
+import Person from '../Domain/ValueObjects/Person';
+import Task from '../Domain/ValueObjects/Task';
 import TaskDefinition from '../Domain/ValueObjects/TaskDefinition';
 import TaskState from '../Domain/ValueObjects/TaskState';
-import Person from '../Domain/ValueObjects/Person';
 
 type Row = {
   id: string;

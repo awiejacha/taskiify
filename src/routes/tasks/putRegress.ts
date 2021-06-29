@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import DecoratedFastifyInstance from '../../types/DecoratedFastifyInstance';
 import RegressNotPossibleError from '../../Domain/Errors/RegressNotPossibleError';
+import TaskiifyInstance from '../../types/TaskiifyInstance';
 
 interface Request extends FastifyRequest {
   params: {
@@ -8,10 +8,8 @@ interface Request extends FastifyRequest {
   };
 }
 
-export default async function (server: DecoratedFastifyInstance) {
-  server.route({
-    method: 'PUT',
-    url: '/:id/regress',
+export default async function (server: TaskiifyInstance) {
+  await server.put('/:id/regress', {
     schema: {
       params: {
         type: 'object',

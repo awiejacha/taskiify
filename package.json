@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Taskify with double 'i'",
   "scripts": {
-    "start": "npm run transpile && node dist/app",
+    "start": "ts-node-dev src/app",
     "prebuild": "npm install",
     "build": "npm run transpile",
     "transpile": "tsc",
@@ -34,6 +34,7 @@
     "jest-mock-extended": "^1.0.16",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
+    "ts-node-dev": "^1.1.6",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.2",
     "tsutils": "^3.21.0",

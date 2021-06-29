@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify';
-import { IdGenerator } from '../plugins/idGenerator';
 import Repository from '../Domain/Repository';
+import { IdGenerator } from '../plugins/idGenerator';
 
-export default interface DecoratedFastifyInstance extends FastifyInstance{
+export default interface TaskiifyInstance extends FastifyInstance{
   idGenerator: IdGenerator;
   repository: Repository;
 }

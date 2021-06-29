@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import DecoratedFastifyInstance from '../../types/DecoratedFastifyInstance';
-import Person from '../../Domain/ValueObjects/Person';
 import TaskNotAssignableError from '../../Domain/Errors/TaskNotAssignableError';
+import Person from '../../Domain/ValueObjects/Person';
+import TaskiifyInstance from '../../types/TaskiifyInstance';
 
 interface Request extends FastifyRequest {
   params: {
@@ -10,10 +10,8 @@ interface Request extends FastifyRequest {
   };
 }
 
-export default async function (server: DecoratedFastifyInstance) {
-  server.route({
-    method: 'PUT',
-    url: '/:id/assign/:assignee',
+export default async function (server: TaskiifyInstance) {
+  await server.put('/:id/assign/:assignee', {
     schema: {
       params: {
         type: 'object',

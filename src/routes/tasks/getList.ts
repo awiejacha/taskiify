@@ -1,11 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import DecoratedFastifyInstance from '../../types/DecoratedFastifyInstance';
 import Task from '../../Domain/ValueObjects/Task';
+import TaskiifyInstance from '../../types/TaskiifyInstance';
 
-export default async function (server: DecoratedFastifyInstance) {
-  server.route({
-    method: 'GET',
-    url: '/list',
+export default async function (server: TaskiifyInstance) {
+  await server.get('/list', {
     schema: {
       response: {
         200: {

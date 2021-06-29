@@ -1,9 +1,9 @@
+import ProgressNotPossibleError from '../Errors/ProgressNotPossibleError';
+import TaskNotAssignableError from '../Errors/TaskNotAssignableError';
 import Location from './Location';
+import Person from './Person';
 import TaskDefinition from './TaskDefinition';
 import TaskState from './TaskState';
-import Person from './Person';
-import TaskNotAssignableError from '../Errors/TaskNotAssignableError';
-import ProgressNotPossibleError from '../Errors/ProgressNotPossibleError';
 
 export type TaskPresentation = {
   id: string;

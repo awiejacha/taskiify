@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import DecoratedFastifyInstance from '../../types/DecoratedFastifyInstance';
-import Task from '../../Domain/ValueObjects/Task';
 import Location from '../../Domain/ValueObjects/Location';
+import Task from '../../Domain/ValueObjects/Task';
 import TaskDefinition from '../../Domain/ValueObjects/TaskDefinition';
 import TaskState from '../../Domain/ValueObjects/TaskState';
+import TaskiifyInstance from '../../types/TaskiifyInstance';
 
 interface Request extends FastifyRequest {
   params: {
@@ -12,10 +12,8 @@ interface Request extends FastifyRequest {
   };
 }
 
-export default async function (server: DecoratedFastifyInstance) {
-  server.route({
-    method: 'POST',
-    url: '/create/:location/:definition',
+export default async function (server: TaskiifyInstance) {
+  await server.post('/create/:location/:definition', {
     schema: {
       params: {
         type: 'object',
