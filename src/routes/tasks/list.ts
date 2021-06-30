@@ -1,9 +1,8 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import Task from '../../Domain/ValueObjects/Task';
-import TaskiifyInstance from '../../types/TaskiifyInstance';
 
-export default async function (server: TaskiifyInstance) {
-  await server.get('/list', {
+export default async (fastify: FastifyInstance) => {
+  fastify.get('/list', {
     schema: {
       response: {
         200: {
@@ -14,7 +13,7 @@ export default async function (server: TaskiifyInstance) {
       },
     },
     handler: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-      const tasks = await server.repository.findNotDone();
+      const tasks = await fastify.repository.findNotDone();
 
       if (!tasks.length) {
         reply.code(404).send();
@@ -25,4 +24,4 @@ export default async function (server: TaskiifyInstance) {
       reply.code(200).send(tasks.map((task: Task) => task.toPresentation()));
     },
   });
-}
+};

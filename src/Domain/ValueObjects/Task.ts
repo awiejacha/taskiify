@@ -1,3 +1,4 @@
+import LogicError from '../Errors/LogicError';
 import ProgressNotPossibleError from '../Errors/ProgressNotPossibleError';
 import TaskNotAssignableError from '../Errors/TaskNotAssignableError';
 import Location from './Location';
@@ -48,18 +49,21 @@ export default class Task {
     this.taskState = this.taskState.getRegressed();
 
     if (this.taskState.name === TaskState.PENDING) {
-      this.taskAssignee = null;
-      this.taskResponsible = null;
+      delete this.taskAssignee;
+      delete this.taskResponsible;
 
       return;
     }
 
     if (this.taskState.name === TaskState.ONGOING) {
+      if (!this.taskResponsible) {
+        throw new LogicError('Ongoing task has no responsible person');
+      }
       this.taskAssignee = new Person(this.taskResponsible.name);
     }
   }
 
-  get assignee(): Person|null {
+  get assignee(): Person|undefined {
     return this.taskAssignee;
   }
 
@@ -79,7 +83,7 @@ export default class Task {
     }
   }
 
-  get responsible(): Person|null {
+  get responsible(): Person|undefined {
     return this.taskResponsible;
   }
 

@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 
-export default async function (server: FastifyInstance) {
-  await server.addSchema({
+export default (server: FastifyInstance) => {
+  server.addSchema({
     $id: 'responseError',
     type: 'object',
     properties: {
@@ -10,4 +10,4 @@ export default async function (server: FastifyInstance) {
       },
     },
   });
-}
+};

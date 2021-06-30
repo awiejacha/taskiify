@@ -7,12 +7,16 @@ services:
     working_dir: /home/node/app
     environment:
       NODE_ENV: development
+      APP_DB_HOST: mysql.docker.internal
+      APP_DB_USER: root
+      APP_DB_PASS: password
+      APP_DB_NAME: taskiify
     volumes:
       - ./:/home/node/app:delegated
     ports:
       - 3000:3000
     entrypoint: npm
-    command: start
+    command: run dev
     networks:
       taskiify:
   db:

@@ -40,8 +40,8 @@ const getPerson = (personId: number): Person =>
   new Person(Person.ALL_PERSONS[personId]);
 
 const rowToTask = (row: Row): Task => {
-  const assignee = row.id_assignee ? getPerson(row.id_assignee) : null;
-  const responsible = row.id_responsible ? getPerson(row.id_responsible) : null;
+  const assignee = row.id_assignee ? getPerson(row.id_assignee) : undefined;
+  const responsible = row.id_responsible ? getPerson(row.id_responsible) : undefined;
 
   return new Task(
     row.id,
@@ -59,8 +59,8 @@ const taskToRow = (task: Task): Row => {
     id_location: getIdLocation(task.location.name),
     id_definition: getIdDefinition(task.definition.name),
     id_state: getIdState(task.state.name),
-    id_assignee: task.assignee ? getIdPerson(task.assignee.name) : null,
-    id_responsible: task.responsible ? getIdPerson(task.responsible.name) : null,
+    id_assignee: task.assignee ? getIdPerson(task.assignee.name) : undefined,
+    id_responsible: task.responsible ? getIdPerson(task.responsible.name) : undefined,
   };
 };
 

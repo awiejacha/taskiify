@@ -1,19 +1,16 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import Location from '../../Domain/ValueObjects/Location';
 import Task from '../../Domain/ValueObjects/Task';
 import TaskDefinition from '../../Domain/ValueObjects/TaskDefinition';
 import TaskState from '../../Domain/ValueObjects/TaskState';
-import TaskiifyInstance from '../../types/TaskiifyInstance';
 
-interface Request extends FastifyRequest {
-  params: {
-    location: string;
-    definition: string;
-  };
-}
+type Params = {
+  location: string;
+  definition: string;
+};
 
-export default async function (server: TaskiifyInstance) {
-  await server.post('/create/:location/:definition', {
+export default async (fastify: FastifyInstance) => {
+  fastify.post<{ Params: Params }>('/create/:location/:definition', {
     schema: {
       params: {
         type: 'object',
@@ -32,15 +29,16 @@ export default async function (server: TaskiifyInstance) {
         201: { $ref: 'responseTask#' },
       },
     },
-    handler: async (request: Request, reply: FastifyReply): Promise<void> => {
+    handler: async (
+      request: FastifyRequest<{ Params: Params }>, reply: FastifyReply): Promise<void> => {
       const task: Task = new Task(
-        server.idGenerator(),
+        fastify.generateUniqueId(),
         new Location(request.params.location),
         new TaskDefinition(request.params.definition),
         new TaskState(TaskState.PENDING),
       );
-      await server.repository.add(task);
+      await fastify.repository.add(task);
       reply.code(201).send(task.toPresentation());
     },
   });
-}
+};
