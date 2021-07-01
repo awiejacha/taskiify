@@ -1,5 +1,6 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
 import fastifyAutoload, { AutoloadPluginOptions } from 'fastify-autoload';
+import fastifyHelmet from 'fastify-helmet';
 import { join } from 'path';
 import repository from './plugins/repository';
 import uniqueId from './plugins/unique-id';
@@ -16,8 +17,9 @@ const app: FastifyPluginAsync<AppOptions> = async (
 ): Promise<void> => {
   void responseError(fastify);
   void responseTask(fastify);
-  void fastify.register(uniqueId);
+  void fastify.register(fastifyHelmet);
   void fastify.register(repository);
+  void fastify.register(uniqueId);
   void fastify.register(fastifyAutoload, {
     dir: join(__dirname, 'routes/tasks'),
     options: { prefix: 'tasks' },
