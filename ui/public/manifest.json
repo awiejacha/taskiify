@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Taskiify",
+  "name": "Taskify with double 'i'",
   "icons": [
     {
       "src": "favicon.ico",
