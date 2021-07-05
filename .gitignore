@@ -63,3 +63,13 @@ test/types/index.js
 
 # compiled app
 dist
+build
+
+.pnp
+.pnp.js
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

@@ -1,5 +1,6 @@
 import { FastifyInstance, FastifyPluginAsync } from 'fastify';
 import fastifyAutoload, { AutoloadPluginOptions } from 'fastify-autoload';
+import fastifyCors from 'fastify-cors';
 import fastifyHelmet from 'fastify-helmet';
 import { join } from 'path';
 import repository from './plugins/repository';
@@ -17,6 +18,10 @@ const app: FastifyPluginAsync<AppOptions> = async (
 ): Promise<void> => {
   void responseError(fastify);
   void responseTask(fastify);
+  void fastify.register(fastifyCors, {
+    // TODO: Parametrise
+    origin: 'http://localhost:8080',
+  });
   void fastify.register(fastifyHelmet);
   void fastify.register(repository);
   void fastify.register(uniqueId);

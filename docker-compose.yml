@@ -1,22 +1,38 @@
 version: '3.8'
 
 services:
-  app:
-    container_name: app
-    build: .
+  api:
+    container_name: api
+    build: "./api"
     working_dir: /home/node/app
     environment:
+      PORT: 3000
       NODE_ENV: development
       APP_DB_HOST: mysql.docker.internal
       APP_DB_USER: root
       APP_DB_PASS: password
       APP_DB_NAME: taskiify
     volumes:
-      - ./:/home/node/app:delegated
+      - ./api:/home/node/app:delegated
     ports:
       - 3000:3000
     entrypoint: npm
     command: run dev
+    networks:
+      taskiify:
+  ui:
+    container_name: ui
+    build: "./ui"
+    working_dir: /home/node/app
+    environment:
+      PORT: 8080
+      NODE_ENV: development
+    volumes:
+      - ./ui:/home/node/app:delegated
+    ports:
+      - 8080:8080
+    entrypoint: npm
+    command: start
     networks:
       taskiify:
   db:
