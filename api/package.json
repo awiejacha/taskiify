@@ -1,6 +1,6 @@
 {
   "name": "taskiify",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Taskify with double 'i'",
   "main": "app.ts",
   "directories": {
