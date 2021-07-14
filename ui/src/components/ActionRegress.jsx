@@ -3,11 +3,11 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { taskRegress } from '../services/api';
 import { IN_REVIEW } from '../constants/states';
-import tasksAtom from '../stores/tasks';
+import tasksStore from '../stores/tasks';
 
 export default function ActionRegress(props) {
   const { task } = props;
-  const [tasks, setTasks] = useRecoilState(tasksAtom);
+  const [tasks, setTasks] = useRecoilState(tasksStore);
 
   const onTaskUpdate = (updatedTask) => {
     const transformedTasks = { ...tasks };
@@ -15,10 +15,10 @@ export default function ActionRegress(props) {
     setTasks(transformedTasks);
   };
 
-  const onClick = async (event) => {
+  const onClick = (event) => {
     event.preventDefault();
-    const regressedTask = await taskRegress(task.id);
-    onTaskUpdate(regressedTask);
+    // TODO: Error handling
+    taskRegress(task.id).then((regressedTask) => onTaskUpdate(regressedTask));
   };
 
   return (

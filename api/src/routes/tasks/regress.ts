@@ -37,11 +37,11 @@ export default async (fastify: FastifyInstance) => {
         task.regress();
         await fastify.repository.add(task);
         reply.code(200).send(task.toPresentation());
-      } catch (e) {
-        if (e instanceof RegressNotPossibleError) {
-          reply.code(409).send(e.toPresentation());
+      } catch (error) {
+        if (error instanceof RegressNotPossibleError) {
+          reply.code(409).send(error.toPresentation());
         } else {
-          throw e;
+          throw error;
         }
       }
     },

@@ -1,3 +1,4 @@
+import LocationNotApplicableError from '../Errors/LocationNotApplicableError';
 import LogicError from '../Errors/LogicError';
 import ProgressNotPossibleError from '../Errors/ProgressNotPossibleError';
 import TaskNotAssignableError from '../Errors/TaskNotAssignableError';
@@ -31,6 +32,16 @@ export default class Task {
     this.taskState = state;
     this.taskAssignee = assignee;
     this.taskResponsible = responsible;
+
+    if (location.isSpecified() && !definition.isLocationSpecific()) {
+      throw new LocationNotApplicableError(
+        `Task definition '${definition.name}' must not have specific location`);
+    }
+
+    if (!location.isSpecified() && definition.isLocationSpecific()) {
+      throw new LocationNotApplicableError(
+        `Task definition '${definition.name}' must have specific location`);
+    }
   }
 
   get state(): TaskState {

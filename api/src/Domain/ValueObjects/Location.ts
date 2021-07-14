@@ -27,4 +27,8 @@ export default class Location {
       throw new Error(`Invalid location '${name}'`);
     }
   }
+
+  public isSpecified(): boolean {
+    return this.name !== Location.NOT_SPECIFIED;
+  }
 }

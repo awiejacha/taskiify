@@ -10,5 +10,9 @@ export default class Person {
     Person.ADRIANEK,
   ];
 
-  constructor(public readonly name: string) {}
+  constructor(public readonly name: string) {
+    if (!Person.ALL_PERSONS.includes(name)) {
+      throw new Error(`Invalid person '${name}'`);
+    }
+  }
 }

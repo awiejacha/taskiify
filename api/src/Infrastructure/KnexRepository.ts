@@ -67,17 +67,22 @@ const taskToRow = (task: Task): Row => {
 export default class KnexRepository implements Repository {
   constructor(private knex: Knex) {}
 
-  async findNotDone(): Promise<Task[]> {
+  // TODO: Manage timezones
+  async findNotDoneOrDoneToday(): Promise<Task[]> {
+    console.log(new Date().toISOString().slice(0, 11).replace('T', ' '));
     const results: Row[] = await this.knex.select('*')
-      // @ts-ignore
       .from('tasks')
-      .whereNot('id_state', getIdState(TaskState.DONE));
+      .whereNot('id_state', getIdState(TaskState.DONE))
+      .orWhere(
+        'modified_at',
+        '>=',
+        new Date().toISOString().slice(0, 11),
+      );
     return results.map(rowToTask);
   }
 
   async findById(id: string): Promise<Task|null> {
     const results: Row[] = await this.knex.select('*')
-      // @ts-ignore
       .from('tasks')
       .where('id', id);
     return results.length ? rowToTask(results[0]) : null;

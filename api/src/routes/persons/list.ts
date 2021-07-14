@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import Task from '../../Domain/ValueObjects/Task';
+import Person from '../../Domain/ValueObjects/Person';
 
 export default async (fastify: FastifyInstance) => {
   fastify.get('/list', {
@@ -7,21 +7,12 @@ export default async (fastify: FastifyInstance) => {
       response: {
         200: {
           type: 'array',
-          items: { $ref: 'responseTask#' },
+          items: { type: 'string' },
         },
-        404: {},
       },
     },
     handler: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-      const tasks = await fastify.repository.findNotDoneOrDoneToday();
-
-      if (!tasks.length) {
-        reply.code(404).send();
-
-        return;
-      }
-
-      reply.code(200).send(tasks.map((task: Task) => task.toPresentation()));
+      reply.code(200).send(Person.ALL_PERSONS);
     },
   });
 };

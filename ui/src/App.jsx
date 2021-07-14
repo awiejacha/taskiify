@@ -7,7 +7,6 @@ function App() {
   return (
     <RecoilRoot>
       <div className="App">
-        <div>Tasks</div>
         <TasksTable />
       </div>
     </RecoilRoot>

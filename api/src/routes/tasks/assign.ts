@@ -42,11 +42,11 @@ export default async (fastify: FastifyInstance) => {
         task.assignTo(new Person(request.params.assignee));
         await fastify.repository.add(task);
         reply.code(200).send(task.toPresentation());
-      } catch (e) {
-        if (e instanceof TaskNotAssignableError) {
-          reply.code(409).send(e.toPresentation());
+      } catch (error) {
+        if (error instanceof TaskNotAssignableError) {
+          reply.code(409).send(error.toPresentation());
         } else {
-          throw e;
+          throw error;
         }
       }
     },

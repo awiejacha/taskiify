@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import ActionAssign from './ActionAssign';
 import ActionProgress from './ActionProgress';
 import ActionRegress from './ActionRegress';
-import { PENDING, ONGOING, IN_REVIEW } from '../constants/states';
+import { PENDING, ONGOING, IN_REVIEW, DONE } from '../constants/states';
 
 export default function TaskCell(props) {
   const { task } = props;
 
   const renderAssignee = () => {
-    if (task.assignee === null) {
+    if (!task.assignee) {
       return '';
     }
 
@@ -17,18 +17,25 @@ export default function TaskCell(props) {
       return `${task.assignee === task.responsible ? '🐝' : '👀'} ${task.assignee}`;
     }
 
+    if (task.state === DONE) {
+      return '';
+    }
+
     return `🐝 ${task.assignee}`;
   };
 
   const renderResponsible = () => {
-    if (task.state !== IN_REVIEW || task.assignee === task.responsible) {
-      return '';
+    if (task.state === IN_REVIEW && task.assignee !== task.responsible) {
+      return `🐝 ${task.responsible}`;
     }
 
-    return `🐝 ${task.responsible}`;
+    if (task.state === DONE) {
+      return `💤 ${task.responsible}`;
+    }
+
+    return '';
   };
 
-  // eslint-disable-next-line consistent-return
   const renderActionBoxes = () => {
     switch (task.state) {
       case PENDING:
@@ -67,9 +74,6 @@ export default function TaskCell(props) {
   return (
     <td>
       <div>
-        <div>
-          <small>{task.id}</small>
-        </div>
         <div>{task.definition}</div>
         <div>{task.location}</div>
         <div>{renderAssignee()}</div>

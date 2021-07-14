@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { taskProgress } from '../services/api';
-import tasksAtom from '../stores/tasks';
+import tasksStore from '../stores/tasks';
 
 export default function ActionProgress(props) {
   const { task } = props;
-  const [tasks, setTasks] = useRecoilState(tasksAtom);
+  const [tasks, setTasks] = useRecoilState(tasksStore);
 
   const onTaskUpdate = (updatedTask) => {
     const transformedTasks = { ...tasks };
@@ -14,10 +14,10 @@ export default function ActionProgress(props) {
     setTasks(transformedTasks);
   };
 
-  const onClick = async (event) => {
+  const onClick = (event) => {
     event.preventDefault();
-    const progressedTask = await taskProgress(task.id);
-    onTaskUpdate(progressedTask);
+    // TODO: Error handling
+    taskProgress(task.id).then((progressedTask) => onTaskUpdate(progressedTask));
   };
 
   return (

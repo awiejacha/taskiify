@@ -26,6 +26,18 @@ const app: FastifyPluginAsync<AppOptions> = async (
   void fastify.register(repository);
   void fastify.register(uniqueId);
   void fastify.register(fastifyAutoload, {
+    dir: join(__dirname, 'routes/locations'),
+    options: { prefix: 'locations' },
+  });
+  void fastify.register(fastifyAutoload, {
+    dir: join(__dirname, 'routes/persons'),
+    options: { prefix: 'persons' },
+  });
+  void fastify.register(fastifyAutoload, {
+    dir: join(__dirname, 'routes/task-definitions'),
+    options: { prefix: 'task-definitions' },
+  });
+  void fastify.register(fastifyAutoload, {
     dir: join(__dirname, 'routes/tasks'),
     options: { prefix: 'tasks' },
   });

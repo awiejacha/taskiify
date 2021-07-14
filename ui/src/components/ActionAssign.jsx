@@ -3,18 +3,19 @@ import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { taskAssign } from '../services/api';
 import { IN_REVIEW } from '../constants/states';
-import personsAtom from '../stores/persons';
-import tasksAtom from '../stores/tasks';
+import personsStore from '../stores/persons';
+import tasksStore from '../stores/tasks';
 
 export default function ActionAssign(props) {
   const { task } = props;
-  const [tasks, setTasks] = useRecoilState(tasksAtom);
-  const [persons] = useRecoilState(personsAtom);
-  const [selectedPerson, setSelectedPerson] = useState(task.assignee || null);
+  const [tasks, setTasks] = useRecoilState(tasksStore);
+  const [persons] = useRecoilState(personsStore);
+  const [selectedPerson, setSelectedPerson] = useState(task.assignee || undefined);
 
-  const options = persons.map((person) => ({
-    value: person,
-    label: person.charAt(0).toUpperCase() + person.substr(1).toLowerCase(),
+  const options = persons.map((entry) => ({
+    // TODO: Translate label
+    value: entry,
+    label: entry,
   }));
 
   const onTaskUpdate = (updatedTask) => {
@@ -23,10 +24,10 @@ export default function ActionAssign(props) {
     setTasks(transformedTasks);
   };
 
-  const onButtonClick = async (event) => {
+  const onButtonClick = (event) => {
     event.preventDefault();
-    const assignedTask = await taskAssign(task.id, selectedPerson);
-    onTaskUpdate(assignedTask);
+    // TODO: Error handling
+    taskAssign(task.id, selectedPerson).then((assignedTask) => onTaskUpdate(assignedTask));
   };
 
   const onSelectChange = (event) => {
@@ -40,7 +41,9 @@ export default function ActionAssign(props) {
       </button>
       <select value={selectedPerson} onChange={onSelectChange}>
         {options.map((option) => (
-          <option value={option.value}>{option.label}</option>
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
         ))}
       </select>
     </div>
@@ -51,6 +54,6 @@ ActionAssign.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
-    assignee: PropTypes.string.isRequired,
+    assignee: PropTypes.string,
   }).isRequired,
 };
