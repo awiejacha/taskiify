@@ -1,12 +1,19 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { NOT_SPECIFIED } from '../constants/locations';
+import { DONE, IN_REVIEW, ONGOING, PENDING } from '../constants/states';
 import ActionAssign from './ActionAssign';
 import ActionProgress from './ActionProgress';
 import ActionRegress from './ActionRegress';
-import { PENDING, ONGOING, IN_REVIEW, DONE } from '../constants/states';
 
 export default function TaskCell(props) {
+  const { t } = useTranslation();
   const { task } = props;
+
+  const renderLocation = () => (task.location === NOT_SPECIFIED ? '' : t(`locations.${task.location}`));
+
+  const renderPerson = (person) => t(`persons.${person}`);
 
   const renderAssignee = () => {
     if (!task.assignee) {
@@ -14,23 +21,23 @@ export default function TaskCell(props) {
     }
 
     if (task.state === IN_REVIEW) {
-      return `${task.assignee === task.responsible ? '🐝' : '👀'} ${task.assignee}`;
+      return `${task.assignee === task.responsible ? '🐝' : '👀'} ${renderPerson(task.assignee)}`;
     }
 
     if (task.state === DONE) {
       return '';
     }
 
-    return `🐝 ${task.assignee}`;
+    return `🐝 ${renderPerson(task.assignee)}`;
   };
 
   const renderResponsible = () => {
     if (task.state === IN_REVIEW && task.assignee !== task.responsible) {
-      return `🐝 ${task.responsible}`;
+      return `🐝 ${renderPerson(task.responsible)}`;
     }
 
     if (task.state === DONE) {
-      return `💤 ${task.responsible}`;
+      return `💤 ${renderPerson(task.responsible)}`;
     }
 
     return '';
@@ -74,8 +81,8 @@ export default function TaskCell(props) {
   return (
     <td>
       <div>
-        <div>{task.definition}</div>
-        <div>{task.location}</div>
+        <div>{t(`task_definitions.${task.definition}`)}</div>
+        <div>{renderLocation()}</div>
         <div>{renderAssignee()}</div>
         <div>{renderResponsible()}</div>
       </div>

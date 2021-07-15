@@ -1,0 +1,37 @@
+{
+  "locations": {
+    "not_specified": "N/A",
+    "living_room": "Living room",
+    "kitchen": "Kitchen",
+    "master_bedroom": "Master bedroom",
+    "krystian_bedroom": "Krystian's bedroom",
+    "karol_bedroom": "Karol's bedroom",
+    "bathroom": "Bathroom",
+    "wardrobe": "Wardrobe",
+    "clothes_locker": "Clothes locker",
+    "laundry_locker": "Laundry locker"
+  },
+  "persons": {
+    "anusia": "Annette",
+    "karolek": "Karol",
+    "krystek": "Krystian",
+    "adrianek": "Adrian"
+  },
+  "states": {
+    "pending": "Pending",
+    "ongoing": "Ongoing",
+    "in_review": "In review",
+    "done": "Done"
+  },
+  "task_definitions": {
+    "dishes_washing": "Washing the dishes",
+    "dusting": "Dusting",
+    "floor_cleaning": "Cleaning the floor",
+    "ironing": "Ironinig",
+    "laundry_collecting": "Collecting the laundry",
+    "laundry_ejecting": "Ejecting the laundry",
+    "laundry_hanging": "Hanging the laundry",
+    "tidying_up": "Tidying up",
+    "vacuuming": "Vacuuming"
+  }
+}

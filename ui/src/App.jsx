@@ -1,14 +1,13 @@
 import React from 'react';
-import './App.css';
 import { RecoilRoot } from 'recoil';
-import TasksTable from './components/TasksTable';
+import './App.css';
+import AppContainer from './components/AppContainer';
+import './services/l18n';
 
 function App() {
   return (
     <RecoilRoot>
-      <div className="App">
-        <TasksTable />
-      </div>
+      <AppContainer />
     </RecoilRoot>
   );
 }

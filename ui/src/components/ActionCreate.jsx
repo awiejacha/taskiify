@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { useTranslation } from 'react-i18next';
 import { taskCreate } from '../services/api';
 import locationsStore from '../stores/locations';
 import taskDefinitionsStore from '../stores/task-definitions';
 import tasksStore from '../stores/tasks';
 
 export default function ActionCreate() {
+  const { t } = useTranslation();
   const [taskDefinitions] = useRecoilState(taskDefinitionsStore);
   const [locations] = useRecoilState(locationsStore);
 
   const taskDefinitionOptions = taskDefinitions.all.map((entry) => ({
     // TODO: Translate label
     value: entry,
-    label: entry,
+    label: t(`task_definitions.${entry}`),
   }));
   const locationOptions = locations.slice(1).map((entry) => ({
     // TODO: Translate label
     value: entry,
-    label: entry,
+    label: t(`locations.${entry}`),
   }));
 
   const [tasks, setTasks] = useRecoilState(tasksStore);

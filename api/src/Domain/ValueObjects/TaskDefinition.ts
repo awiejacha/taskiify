@@ -1,5 +1,5 @@
 export default class TaskDefinition {
-  public static readonly DISHES_WASHING = 'washing_dishes';
+  public static readonly DISHES_WASHING = 'dishes_washing';
   public static readonly DUSTING = 'dusting';
   public static readonly FLOOR_CLEANING = 'floor_cleaning';
   public static readonly IRONING = 'ironing';

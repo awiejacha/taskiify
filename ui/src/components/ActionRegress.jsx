@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { taskRegress } from '../services/api';
 import { IN_REVIEW } from '../constants/states';
+import { taskRegress } from '../services/api';
 import tasksStore from '../stores/tasks';
 
 export default function ActionRegress(props) {

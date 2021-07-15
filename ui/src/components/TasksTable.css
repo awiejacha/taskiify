@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+thead {
+}
+
+th {
+  background-color: #aaa;
+  color: #fff;
+  padding: 10px;
+  border: none;
+}
+
+th:first-child {
+  border-top-left-radius: 10px;
+}
+
+th:last-child {
+  border-top-right-radius: 10px;
+}

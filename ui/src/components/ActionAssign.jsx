@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { taskAssign } from '../services/api';
+import { useTranslation } from 'react-i18next';
 import { IN_REVIEW } from '../constants/states';
+import { taskAssign } from '../services/api';
 import personsStore from '../stores/persons';
 import tasksStore from '../stores/tasks';
 
 export default function ActionAssign(props) {
+  const { t } = useTranslation();
   const { task } = props;
   const [tasks, setTasks] = useRecoilState(tasksStore);
   const [persons] = useRecoilState(personsStore);
@@ -15,7 +17,7 @@ export default function ActionAssign(props) {
   const options = persons.map((entry) => ({
     // TODO: Translate label
     value: entry,
-    label: entry,
+    label: t(`persons.${entry}`),
   }));
 
   const onTaskUpdate = (updatedTask) => {
