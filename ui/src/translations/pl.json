@@ -1,15 +1,15 @@
 {
   "locations": {
-    "not_specified": "Nie dotyczy",
-    "living_room": "Salon",
-    "kitchen": "Kuchnia",
-    "master_bedroom": "Sypialnia",
-    "krystian_bedroom": "Pokój Krystka",
-    "karol_bedroom": "Pokój Karolka",
-    "bathroom": "Łazienka",
-    "wardrobe": "Garderoba",
-    "clothes_locker": "Schowek na kurtki",
-    "laundry_locker": "Schowek na pranie"
+    "not_specified": "w nieokreślonym miejscu",
+    "living_room": "w salonie",
+    "kitchen": "w kuchni",
+    "master_bedroom": "w sypialni",
+    "krystian_bedroom": "w pokoju Krystka",
+    "karol_bedroom": "w pokoju Karolka",
+    "bathroom": "w łazience",
+    "wardrobe": "w garderobie",
+    "clothes_locker": "w schowku na kurtki",
+    "laundry_locker": "w schowku na pranie"
   },
   "persons": {
     "anusia": "Anusia",

@@ -1,0 +1,23 @@
+table.tasks-table {
+  width: 100%;
+  border-spacing: 0;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  background-color: #fafafa;
+
+  th {
+    background-color: #aaa;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    width: 25%;
+  }
+
+  tr {
+    & > td {
+      width: 25%;
+      padding: 2.5px;
+      border: 1px dashed #dedede;
+    }
+  }
+}

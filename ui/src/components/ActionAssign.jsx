@@ -38,9 +38,6 @@ export default function ActionAssign(props) {
 
   return (
     <div>
-      <button type="submit" onClick={onButtonClick}>
-        {task.state === IN_REVIEW ? '👀' : '🐝'}
-      </button>
       <select value={selectedPerson} onChange={onSelectChange}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -48,6 +45,9 @@ export default function ActionAssign(props) {
           </option>
         ))}
       </select>
+      <button className="action-button" type="submit" onClick={onButtonClick}>
+        {task.state === IN_REVIEW ? '👀' : '🐝'}
+      </button>
     </div>
   );
 }

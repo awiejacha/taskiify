@@ -1,15 +1,15 @@
 {
   "locations": {
     "not_specified": "N/A",
-    "living_room": "Living room",
-    "kitchen": "Kitchen",
-    "master_bedroom": "Master bedroom",
-    "krystian_bedroom": "Krystian's bedroom",
-    "karol_bedroom": "Karol's bedroom",
-    "bathroom": "Bathroom",
-    "wardrobe": "Wardrobe",
-    "clothes_locker": "Clothes locker",
-    "laundry_locker": "Laundry locker"
+    "living_room": "in the living room",
+    "kitchen": "in the kitchen",
+    "master_bedroom": "in the master bedroom",
+    "krystian_bedroom": "in the Krystian's bedroom",
+    "karol_bedroom": "in the Karol's bedroom",
+    "bathroom": "in the bathroom",
+    "wardrobe": "in the wardrobe",
+    "clothes_locker": "in the clothes locker",
+    "laundry_locker": "in the laundry locker"
   },
   "persons": {
     "anusia": "Annette",

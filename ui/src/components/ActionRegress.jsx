@@ -22,9 +22,11 @@ export default function ActionRegress(props) {
   };
 
   return (
-    <button type="submit" onClick={(event) => onClick(event)}>
-      {task.state === IN_REVIEW ? '⛔' : '♻'}
-    </button>
+    <div>
+      <button className="action-button" type="submit" onClick={(event) => onClick(event)}>
+        {task.state === IN_REVIEW ? '⛔' : '♻'}
+      </button>
+    </div>
   );
 }
 

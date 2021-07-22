@@ -5,6 +5,7 @@ import { DONE, IN_REVIEW, ONGOING, PENDING } from '../constants/states';
 import tasksStore from '../stores/tasks';
 import ActionCreate from './ActionCreate';
 import TaskCell from './TaskCell';
+import './TasksTable.scss';
 
 export default function TasksTable() {
   const [tasks] = useRecoilState(tasksStore);
@@ -16,7 +17,7 @@ export default function TasksTable() {
   return (
     <div>
       <ActionCreate />
-      <table>
+      <table className="tasks-table">
         <thead>
           <tr>
             <th>{t(`states.${PENDING}`)}</th>

@@ -1,0 +1,54 @@
+.task-cell-summary {
+  background-color: #aaa;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.task-cell {
+  height: 100px;
+  display: flex;
+  border: 1px dashed #aaa;
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.task-cell-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  & > div {
+    width: auto;
+    padding: 5px;
+    line-height: 1;
+    font-size: 1.4rem;
+    color: #555;
+  }
+}
+
+.task-cell-actions {
+  display: flex;
+  align-self: center;
+  justify-content: flex-end;
+
+  & > div {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    padding: 5px;
+  }
+}
+
+.action-button {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fafafa;
+  font-size: 2rem;
+}

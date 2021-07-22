@@ -21,9 +21,11 @@ export default function ActionProgress(props) {
   };
 
   return (
-    <button type="submit" onClick={(event) => onClick(event)}>
-      🚀
-    </button>
+    <div>
+      <button className="action-button" type="submit" onClick={(event) => onClick(event)}>
+        🚀
+      </button>
+    </div>
   );
 }
 

@@ -6,87 +6,82 @@ import { DONE, IN_REVIEW, ONGOING, PENDING } from '../constants/states';
 import ActionAssign from './ActionAssign';
 import ActionProgress from './ActionProgress';
 import ActionRegress from './ActionRegress';
+import './TaskCell.scss';
 
 export default function TaskCell(props) {
   const { t } = useTranslation();
   const { task } = props;
 
-  const renderLocation = () => (task.location === NOT_SPECIFIED ? '' : t(`locations.${task.location}`));
+  const renderDefinition = () => t(`task_definitions.${task.definition}`);
+
+  const renderLocation = () => (task.location === NOT_SPECIFIED ? '' : ` ${t(`locations.${task.location}`)}`);
 
   const renderPerson = (person) => t(`persons.${person}`);
 
   const renderAssignee = () => {
-    if (!task.assignee) {
-      return '';
+    if (!task.assignee || task.state === DONE) {
+      return [];
     }
+
+    let line = '';
 
     if (task.state === IN_REVIEW) {
-      return `${task.assignee === task.responsible ? '🐝' : '👀'} ${renderPerson(task.assignee)}`;
+      line = `${task.assignee === task.responsible ? '🐝' : '👀'}\u00A0\u00A0${renderPerson(task.assignee)}`;
+    } else {
+      line = `🐝\u00A0\u00A0${renderPerson(task.assignee)}`;
     }
 
-    if (task.state === DONE) {
-      return '';
-    }
-
-    return `🐝 ${renderPerson(task.assignee)}`;
+    return [<div className="task-cell-assignee">{line}</div>];
   };
 
   const renderResponsible = () => {
+    let line = '';
+
     if (task.state === IN_REVIEW && task.assignee !== task.responsible) {
-      return `🐝 ${renderPerson(task.responsible)}`;
+      line = `🐝\u00A0\u00A0${renderPerson(task.responsible)}`;
     }
 
     if (task.state === DONE) {
-      return `💤 ${renderPerson(task.responsible)}`;
+      line = `💤\u00A0\u00A0${renderPerson(task.responsible)}`;
     }
 
-    return '';
+    return line ? [<div className="task-cell-responsible">{line}</div>] : [];
   };
 
+  /**
+   * @return JSX.Element[]
+   */
   const renderActionBoxes = () => {
     switch (task.state) {
       case PENDING:
-        return task.assignee ? (
-          <div>
-            <ActionProgress task={task} />
-          </div>
-        ) : (
-          <div>
-            <ActionAssign task={task} />
-          </div>
-        );
+        return task.assignee ? [<ActionProgress task={task} />] : [<ActionAssign task={task} />];
       case ONGOING:
-        return (
-          <div>
-            <ActionProgress task={task} />
-            <ActionRegress task={task} />
-          </div>
-        );
+        return [<ActionProgress task={task} />, <ActionRegress task={task} />];
       case IN_REVIEW:
-        return task.assignee === task.responsible ? (
-          <div>
-            <ActionAssign task={task} />
-          </div>
-        ) : (
-          <div>
-            <ActionProgress task={task} />
-            <ActionRegress task={task} />
-          </div>
-        );
+        return task.assignee === task.responsible
+          ? [<ActionAssign task={task} />]
+          : [<ActionProgress task={task} />, <ActionRegress task={task} />];
       default:
-        return '';
+        return [];
     }
   };
 
+  /**
+   * return JSX.Element
+   */
   return (
     <td>
-      <div>
-        <div>{t(`task_definitions.${task.definition}`)}</div>
-        <div>{renderLocation()}</div>
-        <div>{renderAssignee()}</div>
-        <div>{renderResponsible()}</div>
+      <div className="task-cell-summary">
+        {renderDefinition()}
+        {renderLocation()}
       </div>
-      {renderActionBoxes()}
+      <div className="task-cell">
+        <div className="task-cell-info">
+          {renderAssignee()}
+          {renderResponsible()}
+        </div>
+        <div className="task-cell-actions">{renderActionBoxes()}</div>
+      </div>
     </td>
   );
 }
