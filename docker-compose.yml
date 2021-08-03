@@ -1,10 +1,10 @@
 version: '3.8'
 
 services:
-  api:
-    container_name: api
-    build: "./api"
-    working_dir: /home/node/app
+  backend:
+    container_name: backend
+    build: "./backend"
+    working_dir: /home/node/fastify
     environment:
       PORT: 3000
       NODE_ENV: development
@@ -13,7 +13,7 @@ services:
       APP_DB_PASS: password
       APP_DB_NAME: taskiify
     volumes:
-      - ./api:/home/node/app:delegated
+      - ./backend:/home/node/fastify:delegated
     ports:
       - 3000:3000
     entrypoint: npm
@@ -23,12 +23,12 @@ services:
   ui:
     container_name: ui
     build: "./ui"
-    working_dir: /home/node/app
+    working_dir: /home/node/fastify
     environment:
       PORT: 8080
       NODE_ENV: development
     volumes:
-      - ./ui:/home/node/app:delegated
+      - ./ui:/home/node/fastify:delegated
     ports:
       - 8080:8080
     entrypoint: npm

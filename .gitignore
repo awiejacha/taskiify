@@ -61,7 +61,7 @@ profile*
 examples/typescript-server.js
 test/types/index.js
 
-# compiled app
+# compiled fastify
 dist
 build
 
