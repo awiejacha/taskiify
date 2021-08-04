@@ -1,34 +1,44 @@
 version: '3.8'
 
 services:
-  backend:
-    container_name: backend
+  api:
+    container_name: api
     build: "./backend"
-    working_dir: /home/node/fastify
-    environment:
-      PORT: 3000
-      NODE_ENV: development
-      APP_DB_HOST: mysql.docker.internal
-      APP_DB_USER: root
-      APP_DB_PASS: password
-      APP_DB_NAME: taskiify
+    working_dir: /home/node
+    env_file:
+      - backend/_docker/development/common.env
+      - backend/_docker/development/app.env
     volumes:
-      - ./backend:/home/node/fastify:delegated
+      - ./backend:/home/node:delegated
+      - ./var/log:/var/log:delegated
     ports:
       - 3000:3000
     entrypoint: npm
     command: run dev
     networks:
       taskiify:
+  cron:
+    container_name: cron
+    build: "./backend"
+    working_dir: /home/node
+    env_file:
+      - backend/_docker/development/common.env
+    volumes:
+      - ./backend:/home/node:delegated
+      - ./var/log:/var/log:delegated
+    entrypoint: "cron-entrypoint.sh"
+    command: ["cron", "-f"]
+    networks:
+      taskiify:
   ui:
     container_name: ui
     build: "./ui"
-    working_dir: /home/node/fastify
+    working_dir: /home/node
     environment:
       PORT: 8080
       NODE_ENV: development
     volumes:
-      - ./ui:/home/node/fastify:delegated
+      - ./ui:/home/node:delegated
     ports:
       - 8080:8080
     entrypoint: npm
