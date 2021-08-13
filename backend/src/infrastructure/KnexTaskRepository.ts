@@ -85,7 +85,6 @@ export default class KnexTaskRepository implements TaskRepository {
 
   // TODO: Manage timezones
   async findNotDoneOrDoneToday(): Promise<Task[]> {
-    console.log(new Date().toISOString().slice(0, 11).replace('T', ' '));
     const results: Row[] = await this.knex.select('*')
       .from('tasks')
       .whereNot('id_state', getIdState(TaskState.DONE))

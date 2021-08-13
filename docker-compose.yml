@@ -13,10 +13,12 @@ services:
       - ./var/log:/var/log:delegated
     ports:
       - 3000:3000
-    entrypoint: npm
-    command: run dev
+    entrypoint: "api-entrypoint.sh"
+    command: ["npm", "run", "dev"]
     networks:
       taskiify:
+    depends_on:
+      - db
   cron:
     container_name: cron
     build: "./backend"
@@ -30,6 +32,8 @@ services:
     command: ["cron", "-f"]
     networks:
       taskiify:
+    depends_on:
+      - api
   ui:
     container_name: ui
     build: "./ui"
@@ -45,6 +49,8 @@ services:
     command: start
     networks:
       taskiify:
+    depends_on:
+      - api
   db:
     container_name: db
     restart: always

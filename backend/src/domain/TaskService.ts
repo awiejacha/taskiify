@@ -19,7 +19,6 @@ export default class TaskService {
   }
 
   public async create(locationName: string, definitionName: string): Promise<Task> {
-    console.log(locationName);
     const task: Task = new Task(
       this.idGenerator.generate(),
       new Location(locationName),
