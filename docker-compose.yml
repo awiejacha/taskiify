@@ -7,7 +7,7 @@ services:
     working_dir: /home/node
     env_file:
       - backend/_docker/development/common.env
-      - backend/_docker/development/app.env
+      - backend/_docker/development/api.env
     volumes:
       - ./backend:/home/node:delegated
       - ./var/log:/var/log:delegated
@@ -25,6 +25,7 @@ services:
     working_dir: /home/node
     env_file:
       - backend/_docker/development/common.env
+      - backend/_docker/development/cron.env
     volumes:
       - ./backend:/home/node:delegated
       - ./var/log:/var/log:delegated

@@ -2,15 +2,22 @@
   "name": "taskiify",
   "version": "0.2.0",
   "description": "Taskify with double 'i'",
-  "main": "app.ts",
+  "main": "dist/application/app.js",
+  "exports": {
+    "./log-transports/console": "./src/application/log-transports/console.mjs"
+  },
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "npm run build:ts && tsc -p test/tsconfig.test.json && cross-env TS_NODE_FILES=true tap --ts test/**/*.test.ts",
-    "start": "npm run build:ts && fastify start -a 0.0.0.0 -l info dist/application/app.js",
+    "test": "tsc -p test/tsconfig.test.json && cross-env TS_NODE_FILES=true tap --ts test/**/*.test.ts",
+    "start": "fastify start -a 0.0.0.0 -l info dist/application/app.js",
+    "start:dev": "fastify start -a 0.0.0.0 -l debug --ignore-watch=.ts$ -w -P dist/application/app.js",
     "build:ts": "tsc",
-    "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start -a 0.0.0.0 --ignore-watch=.ts$ -w -l info -P dist/application/app.js\""
+    "watch:ts": "tsc -w",
+    "build:mjs": "copy-and-watch src/**/*.mjs dist",
+    "watch:mjs": "copy-and-watch --watch src/**/*.mjs dist",
+    "dev": "concurrently -k -p \"[{name}]\" -n \"ts,mjs,app\" -c \"yellow.bold,yellow.bold,cyan.bold\" \"npm run watch:ts\" \"npm run watch:mjs\" \"npm run start:dev\""
   },
   "repository": {
     "type": "git",
@@ -32,12 +39,15 @@
     "fastify-plugin": "^3.0.0",
     "knex": "^0.95.6",
     "mysql2": "^2.2.5",
-    "nanoid": "^3.1.23"
+    "nanoid": "^3.1.23",
+    "pino": "^7.0.0-rc.2",
+    "rotating-file-stream": "^2.1.5"
   },
   "devDependencies": {
     "@types/node": "^15.12.5",
     "@types/tap": "^15.0.4",
     "concurrently": "^6.2.0",
+    "copy-and-watch": "^0.1.5",
     "cross-env": "^7.0.3",
     "fastify-tsconfig": "^1.0.1",
     "tap": "^15.0.9",

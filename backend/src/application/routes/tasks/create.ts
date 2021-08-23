@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import LocationNotApplicableError from '../../../domain/Errors/LocationNotApplicableError';
 import Location from '../../../domain/ValueObjects/Location';
 import TaskDefinition from '../../../domain/ValueObjects/TaskDefinition';
 
@@ -30,20 +29,14 @@ export default async (fastify: FastifyInstance) => {
       },
     },
     handler: async (
-      request: FastifyRequest<{ Params: Params }>, reply: FastifyReply): Promise<void> => {
-      try {
-        const task = await fastify.taskService.create(
-          request.params.location,
-          request.params.definition,
-        );
-        reply.code(201).send(task.toPresentation());
-      } catch (error) {
-        if (error instanceof LocationNotApplicableError) {
-          reply.code(409).send(error.toPresentation());
-        } else {
-          throw error;
-        }
-      }
+      request: FastifyRequest<{ Params: Params }>,
+      reply: FastifyReply,
+    ): Promise<void> => {
+      const task = await fastify.taskService.create(
+        request.params.location,
+        request.params.definition,
+      );
+      reply.code(201).send(task.toPresentation());
     },
   });
 };

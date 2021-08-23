@@ -1,6 +1,8 @@
-import PresentableError from './PresentableError';
+import StatusCodeError from './StatusCodeError';
 
-export default class SuchTaskAlreadyExistsError extends PresentableError {
+export default class SuchTaskAlreadyExistsError extends StatusCodeError {
+  public readonly statusCode: number = 409;
+
   constructor(message?: string) {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);

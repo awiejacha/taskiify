@@ -1,6 +1,4 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import TaskNotAssignableError from '../../../domain/Errors/TaskNotAssignableError';
-import TaskNotFoundError from '../../../domain/Errors/TaskNotFoundError';
 import Person from '../../../domain/ValueObjects/Person';
 
 type Params = {
@@ -30,22 +28,14 @@ export default async (fastify: FastifyInstance) => {
       },
     },
     handler: async (
-      request: FastifyRequest<{ Params: Params }>, reply: FastifyReply): Promise<void> => {
-      try {
-        const assignedTask = await fastify.taskService.assign(
-          request.params.id,
-          request.params.assignee,
-        );
-        reply.code(200).send(assignedTask.toPresentation());
-      } catch (error) {
-        if (error instanceof TaskNotFoundError) {
-          reply.code(404).send();
-        } else if (error instanceof TaskNotAssignableError) {
-          reply.code(409).send(error.toPresentation());
-        } else {
-          throw error;
-        }
-      }
+      request: FastifyRequest<{ Params: Params }>,
+      reply: FastifyReply,
+    ): Promise<void> => {
+      const assignedTask = await fastify.taskService.assign(
+        request.params.id,
+        request.params.assignee,
+      );
+      reply.code(200).send(assignedTask.toPresentation());
     },
   });
 };

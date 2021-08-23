@@ -3,6 +3,8 @@ import fastifyAutoload, { AutoloadPluginOptions } from 'fastify-autoload';
 import fastifyCors from 'fastify-cors';
 import fastifyHelmet from 'fastify-helmet';
 import { join } from 'path';
+import errorHandler from './plugins/error-handler';
+import logger from './plugins/logger';
 import taskService from './plugins/task-service';
 import responseError from './schemas/response-error';
 import responseTask from './schemas/response-task';
@@ -22,6 +24,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
     origin: 'http://localhost:8080',
   });
   void fastify.register(fastifyHelmet);
+  void fastify.register(logger);
+  void fastify.register(errorHandler);
   void fastify.register(taskService);
   void fastify.register(fastifyAutoload, {
     dir: join(__dirname, 'routes/locations'),

@@ -7,6 +7,7 @@ function build_dist() {
   if [ ! -d dist ]; then
     echo "No app distribution, building..."
     npm run build:ts
+    npm run build:mjs
     touch dist/_built
     echo "App distribution build finished"
     return
